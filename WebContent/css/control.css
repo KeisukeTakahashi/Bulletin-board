@@ -1,0 +1,102 @@
+@CHARSET "UTF-8";
+
+body {
+	background-color: #e3ffc8;
+	margin-right: auto;
+	margin-left: auto;
+	width: 800px;
+}
+
+body, p, form, input {
+	margin: 0 auto;
+}
+
+.main-contents {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #e3ffc8;
+	height: 100%;
+	width: 800px;
+}
+
+label {
+	display: block;
+}
+
+/* リスト表示 */
+table {
+ margin-left: auto;
+ margin-right: auto;
+ table-layout: fixed;
+ word-wrap: break-word;
+
+}
+
+tbody {
+ text-align: center;
+
+}
+
+table, td, th {
+border: 2px #2b2b2b solid;
+width: 150px;
+height: 40px;
+font-size: 14px;
+font-weight: bold;
+}
+
+th {
+ background: #d6ffac;
+}
+
+td {
+background: #f7ffee;
+}
+
+input#submit_button1 {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 16px;
+    background-color: #ff9797;
+    color: #fff;
+    border-style: none;
+}
+
+input#submit_button1:hover {
+    background-color: #ff2828;
+    color: #fff;
+}
+
+
+input#submit_button2 {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 16px;
+    background-color: #7575ff;
+    color: #fff;
+    border-style: none;
+}
+
+input#submit_button2:hover {
+    background-color: #1717ff;
+    color: #fff;
+}
+
+
+input#submit_button3 {
+    padding: 2px 16px;
+    font-size: 14px;
+}
+
+
+
+/* エラーメッセージの色指定 */
+.errorMessages {
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	color: red;
+}

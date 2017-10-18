@@ -1,0 +1,189 @@
+@CHARSET "UTF-8";
+
+body {
+	background-color: #e3ffc8;
+	margin-right: auto;
+	margin-left: auto;
+	width: 800px;
+}
+
+body, p, form, input {
+	margin: 0 auto;
+}
+
+.main-contents {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #e3ffc8;
+	height: 100%;
+	width: 800px;
+}
+
+label {
+	display: block;
+}
+
+.user_info {
+padding: 0.5em 1em;
+margin: 1em 0;
+background: #efffdf;
+border-left: solid 6px #70c598;
+box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.33);
+}
+.user_info p {
+margin: 0;
+padding: 0;
+}
+/* 絞り込み */
+
+.search_area {
+	padding: 0.5em 1em;
+	margin: 2em 0;
+	background: #ffffff;
+	border: dashed 2px #005500;
+}
+
+.search_area p {
+	margin: 0;
+	padding: 0;
+}
+
+input[id="start_day"], input[id="end_day"]{
+	width: 170px;
+	padding: 3px;
+	font-size: 14px;
+}
+
+input[id="lists.category"]{
+	width: 376px;
+	padding: 3px;
+	font-size: 14px;
+}
+
+.search_area {
+    text-align: left;
+}
+
+.submit input {
+	display: inline-block;
+	margin: 0 0px;
+    width: 70px;
+}
+
+input#submit_button1 {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 16px;
+    background-color: #ff9797;
+    color: #fff;
+    border-style: none;
+}
+
+input#submit_button1:hover {
+    background-color: #ff2828;
+    color: #fff;
+}
+
+input#submit_button2 {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 16px;
+    background-color: #7575ff;
+    color: #fff;
+    border-style: none;
+}
+
+input#submit_button2:hover {
+    background-color: #1717ff;
+    color: #fff;
+}
+
+/* メッセージ */
+.message {
+margin: 2em 0;
+background: #ffffff;
+ border: 3px solid #005500;
+ word-wrap: break-word;
+}
+
+.message .subject{
+font-size: 1.2em;
+background: #d6ffac;
+padding: 4px;
+text-align: left;
+color: #005500;
+font-weight: bold;
+letter-spacing: 0.05em;
+}
+.message p {
+padding: 10px 15px;
+margin: 0;
+}
+
+p.category{
+   line-height: 1px
+}
+
+p.name{
+   line-height: 1px
+}
+
+p.date {
+   border-bottom: 1px dotted;
+   line-height: 1px
+}
+
+/* コメント */
+.comment {
+  position: relative;
+  border: 3px solid #005500;
+  background: white;
+  border-radius: 8px;
+  padding: 4px;
+  width:700px;
+  word-wrap: break-word;
+}
+
+.comment::before, .comment::after {
+  position: absolute;
+  bottom: 100%;
+  left: 10%;
+  content: '';
+  height: 0;
+  width: 0;
+  border: 12px solid transparent;
+}
+
+.comment::before {
+  border-bottom: 16px solid #005500;
+}
+
+.comment::after {
+  border-bottom: 16px solid #fff;
+  margin-bottom: -5px;
+}
+
+.comment p {
+  padding: 10px 15px;
+  margin: 0;
+}
+
+p.comment_name {
+   line-height: 1px
+}
+
+p.comment_date {
+   border-bottom: 1px dotted;
+   line-height: 1px
+}
+
+/* エラーメッセージの色指定 */
+.errorMessages {
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	color: red;
+}
