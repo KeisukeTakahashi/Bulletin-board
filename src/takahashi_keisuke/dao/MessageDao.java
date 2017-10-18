@@ -45,8 +45,6 @@ public class MessageDao {
 			ps.setInt(5, message.getDepartmentId());
 			ps.setInt(6, message.getUserId());
 
-			System.out.println(ps.toString());
-
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new SQLRuntimeException(e);

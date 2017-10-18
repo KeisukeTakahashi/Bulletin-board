@@ -62,37 +62,6 @@ public class UserMessageDao {
 		}
 	}
 
-//	public List<UserMessage> getUserMessages(Connection connection, int num, String startDay, String endDay, String category) {
-//
-//		PreparedStatement ps = null;
-//		try {
-//			StringBuilder sql = new StringBuilder();
-//			sql.append("SELECT * FROM users_posts ");
-//			sql.append("WHERE created_at >= ? ");
-//			sql.append("AND created_at <= ? ");
-//			if(StringUtils.isNotBlank(category) == true){
-//				sql.append("AND category = ? ");
-//			}
-//			sql.append("ORDER BY created_at DESC limit " + num);
-//
-//			ps = connection.prepareStatement(sql.toString());
-//
-//			ps.setString(1, startDay);
-//			ps.setString(2, endDay + " 23:59:59");
-//			if(StringUtils.isNotBlank(category) == true){
-//				ps.setString(3, category);
-//			}
-//
-//			ResultSet rs = ps.executeQuery();
-//			List<UserMessage> ret = toUserMessageList(rs);
-//			return ret;
-//		} catch (SQLException e) {
-//			throw new SQLRuntimeException(e);
-//		} finally {
-//			close(ps);
-//		}
-//	}
-
 	private List<UserMessage> toUserMessageList(ResultSet rs)
 			throws SQLException {
 
