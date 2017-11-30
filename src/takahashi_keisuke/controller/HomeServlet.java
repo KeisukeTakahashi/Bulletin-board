@@ -103,6 +103,9 @@ public class HomeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 
+//		String json = request.getParameter("requestJs");
+//		System.out.println(json);
+
 		List<User> branches = new BranchDataService().getBranchData();
 		request.setAttribute("branches", branches);
 

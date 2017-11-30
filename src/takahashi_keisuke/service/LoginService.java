@@ -58,28 +58,28 @@ public class LoginService {
 		}
 	}
 
-	public User getUserInfo(int id, String login_id) {
-
-		Connection connection = null;
-		try {
-			connection = getConnection();
-
-			UserDao userDao = new UserDao();
-			User userSessionId = userDao.getUserInfo(connection, id, login_id);
-
-			commit(connection);
-
-			return userSessionId;
-		} catch (RuntimeException e) {
-			rollback(connection);
-			throw e;
-		} catch (Error e) {
-			rollback(connection);
-			throw e;
-		} finally {
-			close(connection);
-		}
-	}
+//	public User getUserInfo(int id, String login_id) {
+//
+//		Connection connection = null;
+//		try {
+//			connection = getConnection();
+//
+//			UserDao userDao = new UserDao();
+//			User userSessionId = userDao.getUserInfo(connection, id, login_id);
+//
+//			commit(connection);
+//
+//			return userSessionId;
+//		} catch (RuntimeException e) {
+//			rollback(connection);
+//			throw e;
+//		} catch (Error e) {
+//			rollback(connection);
+//			throw e;
+//		} finally {
+//			close(connection);
+//		}
+//	}
 
 	public void updateSessionId(String login_id, String session_id) {
 

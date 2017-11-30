@@ -11,6 +11,7 @@
 	<title>ホーム</title>
 	<link href="./css/home.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
 <div class="main-contents">
 
@@ -83,6 +84,7 @@
 <div class="messages">
 	<c:forEach items="${messages}" var="message">
 			<div class="message">
+			    <div class="message-item">
 				    <p class="subject">[件名]<c:out value="${message.subject}" /></p>
 				    <p class="category">カテゴリー：<c:out value="${message.category}" /></p>
 					<p class="name">投稿者&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：<c:out value="${message.name}" /></p>
@@ -94,62 +96,173 @@
                   <c:if test="${ loginUser.id == message.userId && loginUser.departmentId != 2 && loginUser.departmentId != 3 }">
 					<form action="DeleteMessage" method="post">
 					<input type="hidden" value="${message.id}" name="id"/>
-					<p class="del"><input type="submit" value="削除" id="submit_button1" onClick="return confirm('このメッセージを削除しますか？')"/></p>
+					<input type="submit" value="削除" id="submit_button1"/>
 					</form>
 				  </c:if>
 				  <c:if test="${ loginUser.departmentId == 2 || loginUser.departmentId == 3 && message.branchId == loginUser.branchId }">
 					<form action="DeleteMessage" method="post">
 					<input type="hidden" value="${message.id}" name="id"/>
-					<p class="del"><input type="submit" value="削除" id="submit_button1" onClick="return confirm('このメッセージを削除しますか？')"/></p>
+					<input type="submit" value="削除" id="submit_button1"/>
 					</form>
 				  </c:if>
-			</div>
+				  </div>
 
-      <div class="comments">
+
+      <div class="comments" id="comment-list">
 		<c:forEach items="${comments}" var="comment" varStatus="status">
             <c:if test="${ message.id == comment.postId}">
-            <div class="comment">
+            <div class="comment" id="comment">
 				<p class="comment_name">投稿者&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：<c:out value="${comment.name}" /></p>
 				<p class="comment_date">投稿日時&nbsp;&nbsp;&nbsp;：<fmt:formatDate value="${comment.createdDate}" pattern="yyyy/MM/dd HH:mm:ss" /></p>
-				<p><c:forEach var="commentTxet" items="${ fn:split(comment.text,'
+				<p class="comment_text"><c:forEach var="commentTxet" items="${ fn:split(comment.text,'
 				') }" >
 				<c:out value="${commentTxet}" /><br>
 				</c:forEach></p>
 
 				<c:if test="${ loginUser.id == comment.userId && loginUser.departmentId != 2 && loginUser.departmentId != 3 }">
-				<form action="DeleteComment" method="post">
-				<input type="hidden" value="${comment.id}" name="id"/>
-				<p class="del"><input type="submit" value="削除" id="submit_button1" onClick="return confirm('このコメントを削除しますか？')"/></p>
+				<form action="DeleteComment" method="post" class="delete-action">
+				 <input type="hidden" value="${comment.id}" name="id" class="id"/>
+				 <input type="submit" value="削除" id="submit_button1"/>
 				</form>
 				</c:if>
 				<c:if test="${ loginUser.departmentId == 2 || loginUser.departmentId == 3 && comment.branchId == loginUser.branchId }">
-				<form action="DeleteComment" method="post">
-				<input type="hidden" value="${comment.id}" name="id"/>
-				<p class="del"><input type="submit" value="削除" id="submit_button1" onClick="return confirm('このコメントを削除しますか？')"/></p>
+				<form action="DeleteComment" method="post" class="delete-action">
+				 <input type="hidden" value="${comment.id}" name="id" class="id"/>
+				 <input type="submit" value="削除" id="submit_button1"/>
 				</form>
 				</c:if>
                 </div>
                 <br>
 			</c:if>
-
 		</c:forEach>
-		</div>
+	 </div>
 
-
-	 <div class="form-area">
-		<form action="newComment" method="post">
+	 <div class="form-area" id="comment-form">
+		<form action="newComment" method="post" class="form-area">
 			コメント記入欄<br>
-			<textarea name="comment" cols="80" rows="4" class="comment-box"></textarea>
+			<textarea name="comment" cols="80" rows="4" class="comment-box event"></textarea>
 			<br>
-			<input type="hidden" value="${message.id}" name="id"/>
-			<input type="submit" id="submit_button2" value="コメントを投稿">
-
+			<input type="hidden" value="${message.id}" name="id" class="id"/>
+			<input type="hidden" value="${loginUser.name}" name="loginUserName" class="loginUserName"/>
+			<input type="submit" class="comments" value="コメントを投稿">
 		</form>
-	 </div>
-	 <br>
-	 </c:forEach>
-	 </div>
+	</div>
+	<br>
+	</div>
+	</c:forEach>
+</div>
 
 </div>
 </body>
+
+	<script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript">
+            $(function(){
+            	$(document).on('click','.form-area input[type=submit]',function(event){
+ 	          		event.preventDefault();
+
+            		var $form = $(this).parent();
+                    var text = $form.find(".event").val();
+                    var id	 = $form.find(".id").val();
+                    var name = $form.find(".loginUserName").val();
+
+                    var d = new Date();
+                    var year  = d.getFullYear();
+                    var month = d.getMonth() + 1;
+                    var day   = d.getDate();
+                    var hour  = ( d.getHours()   < 10 ) ? '0' + d.getHours()   : d.getHours();
+                    var min   = ( d.getMinutes() < 10 ) ? '0' + d.getMinutes() : d.getMinutes();
+                    var sec   = ( d.getSeconds() < 10 ) ? '0' + d.getSeconds() : d.getSeconds();
+                    var now   =( year + '/' + month + '/' + day + ' ' + hour + ':' + min + ':' + sec );
+
+                    $.ajax({
+            			type: "POST",
+            			url : "/takahashi_keisuke/newComment",
+            			data: {requestJs : text,requestId : id},
+            			success : function(data) {
+
+            				var $comment = $form.parent();
+            				var commentId = data.responseMessage;
+            				console.log(commentId);
+
+            				$comment.prev().append('<div class="comment">'
+            						+ '<p class="comment_name">'
+            						+ "投稿者&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：" + name
+            						+'<p class="comment_date">'
+            						+ "投稿日時&nbsp;&nbsp;&nbsp;：" + now +'<p>' + text + '<br></p>'
+            						+ '<form action="DeleteComment" method="post"><input type="hidden" value=' + commentId + ' name="id" class="id"/><input type="submit" value="削除" id="submit_button1"/></div><br>');
+            			}
+            		});
+                });
+            });
+        </script>
+
+<script type="text/javascript">
+	$(function() {
+		$(document).on('click', '.comment input[type=submit]', function(event) {
+			event.preventDefault();
+
+			if (!confirm('本当に削除しますか？')) {
+				/* キャンセルの時の処理 */
+				return false;
+			} else {
+				/* OKの時の処理 */
+
+				var $form = $(this).parent();
+				var id = $(this).prev().val();
+				//console.log($form.prev().val());
+
+				$.ajax({
+					type : "POST",
+					url : "/takahashi_keisuke/DeleteComment",
+					data : {requestId : id},
+					success : function(data) {
+
+						var $comment = $form.parent();
+
+						$comment.prev().remove();
+						$comment.remove();
+						console.log($comment.parent());
+					}
+				});
+			}
+		});
+	});
+</script>
+
+
+<script type="text/javascript">
+	$(function() {
+		$(document).on('click', '.message-item input[type=submit]', function(event) {
+			event.preventDefault();
+
+			if (!confirm('本当に削除しますか？')) {
+				/* キャンセルの時の処理 */
+				return false;
+			} else {
+				/* OKの時の処理 */
+
+				var $form = $(this).parent();
+				var id = $(this).prev().val();
+				console.log(id);
+
+				$.ajax({
+					type : "POST",
+					url : "/takahashi_keisuke/DeleteMessage",
+					data : {requestId : id},
+					success : function(data) {
+
+						var $message = $form.parent();
+
+						$message.parent().remove();
+						console.log($message);
+
+					}
+				});
+			}
+		});
+	});
+</script>
+
+
 </html>

@@ -18,7 +18,7 @@ public class DeleteMessageServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		new MessageService().getDeleteMessage(request.getParameter("id"));
+		new MessageService().getDeleteMessage(request.getParameter("requestId"));
 
 		response.sendRedirect("./");
 	}

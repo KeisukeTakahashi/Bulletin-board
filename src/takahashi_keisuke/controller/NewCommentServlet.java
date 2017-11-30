@@ -1,6 +1,7 @@
 package takahashi_keisuke.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,9 @@ public class NewCommentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 
+		System.out.println(request.getParameter("requestId"));
+		System.out.println(request.getParameter("requestJs"));
+
 		HttpSession session = request.getSession();
 
 		List<String> messages = new ArrayList<String>();
@@ -34,15 +38,21 @@ public class NewCommentServlet extends HttpServlet {
 			User user = (User) session.getAttribute("loginUser");
 
 			Comment comment = new Comment();
-			comment.setText(request.getParameter("comment"));
+			comment.setText(request.getParameter("requestJs"));
 			comment.setUserId(user.getId());
-			comment.setPostId(Integer.parseInt(request.getParameter("id")));
+			comment.setPostId(Integer.parseInt(request.getParameter("requestId")));
 			comment.setBranchId(user.getBranchId());
 			comment.setDepartmentId(user.getDepartmentId());
 
-			new CommentService().register(comment);
+			int autoIncKey = new CommentService().register(comment);
+			System.out.println(autoIncKey);
 
-			response.sendRedirect("./");
+			String responseJson = "{\"responseMessage\" : \"" + autoIncKey + "\"}";
+			response.setContentType("application/json;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.print(responseJson);
+
+			//response.sendRedirect("./");
 		} else {
 			session.setAttribute("errorMessages", messages);
 			response.sendRedirect("./");
@@ -51,7 +61,7 @@ public class NewCommentServlet extends HttpServlet {
 
 	private boolean isValid(HttpServletRequest request, List<String> messages) {
 
-		String message = request.getParameter("comment");
+		String message = request.getParameter("requestJs");
 
 		if (StringUtils.isNotBlank(message) != true) {
 			messages.add("コメントを入力してください");

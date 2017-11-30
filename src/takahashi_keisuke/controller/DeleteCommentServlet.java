@@ -18,7 +18,7 @@ public class DeleteCommentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		new CommentService().getDeleteComment(request.getParameter("id"));
+		new CommentService().getDeleteComment(request.getParameter("requestId"));
 
 		response.sendRedirect("./");
 	}

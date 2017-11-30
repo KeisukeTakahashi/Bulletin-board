@@ -13,16 +13,18 @@ import takahashi_keisuke.dao.UserCommentDao;
 
 public class CommentService {
 
-	public void register(Comment comment) {
+	public int register(Comment comment) {
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
 
 			CommentDao commentDao = new CommentDao();
-			commentDao.insert(connection, comment);
+			int autoIncKey = commentDao.insert(connection, comment);
 
 			commit(connection);
+
+			return autoIncKey;
 		} catch (RuntimeException e) {
 			rollback(connection);
 			throw e;

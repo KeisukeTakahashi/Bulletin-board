@@ -101,14 +101,14 @@ input#submit_button2:hover {
 }
 
 /* メッセージ */
-.message {
+.message-item {
 margin: 2em 0;
 background: #ffffff;
  border: 3px solid #005500;
  word-wrap: break-word;
 }
 
-.message .subject{
+.message-item .subject{
 font-size: 1.2em;
 background: #d6ffac;
 padding: 4px;
@@ -117,7 +117,7 @@ color: #005500;
 font-weight: bold;
 letter-spacing: 0.05em;
 }
-.message p {
+.message-item p {
 padding: 10px 15px;
 margin: 0;
 }
